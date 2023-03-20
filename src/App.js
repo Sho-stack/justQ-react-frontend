@@ -10,13 +10,7 @@ function App() {
 
   // darkmode/lightmode controls
   const [theme, setTheme] = useState("dark");
-  const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }
+  const toggleTheme = () => {if (theme === "light") {setTheme("dark");} else {setTheme("light");}}
 
   // modal control state
   const [showModal, setShowModal] = useState('');
@@ -55,15 +49,35 @@ function App() {
     {/* container for app content, used for dark/light theme */}
     <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}>
     
-    {showModal === 'Ask' && <AskModal show={showAskModal} theme={theme} handleClose={closeAskModal}/>}
-    {showModal === 'Login' && <LoginModal show={showLoginModal} theme={theme} handleClose={closeLoginModal} openPasswordResetModal={openPasswordResetModal} openRegistrationModal={openRegistrationModal}/>}
-    {showModal === 'Pass' && <PassResetModal show={showPasswordResetModal} theme={theme} handleClose={closePasswordResetModal} />}
-    {showModal === 'Regist' && <RegisterModal show={showRegistrationModal} theme={theme} handleClose={closeRegistrationModal} />}
+    {showModal === 'Ask' && <AskModal 
+      show={showAskModal} 
+      theme={theme} 
+      handleClose={closeAskModal}
+    />}
 
-    {/* <AskModal show={showAskModal} theme={theme} handleClose={closeAskModal}/>
-    <LoginModal show={showLoginModal} theme={theme} handleClose={closeLoginModal} openPasswordResetModal={openPasswordResetModal} openRegistrationModal={openRegistrationModal}/>
-    <PassResetModal show={showPasswordResetModal} theme={theme} handleClose={closePasswordResetModal} />
-    <RegisterModal show={showRegistrationModal} theme={theme} handleClose={closeRegistrationModal} /> */}
+    {showModal === 'Login' && <LoginModal 
+      show={showLoginModal} 
+      theme={theme} 
+      handleClose={closeLoginModal} 
+      openPasswordResetModal={openPasswordResetModal} 
+      openRegistrationModal={openRegistrationModal}
+    />}
+
+    {showModal === 'Pass' && <PassResetModal 
+      show={showPasswordResetModal} 
+      theme={theme} 
+      openLoginModal={openLoginModal} 
+      handleClose={closePasswordResetModal} 
+    />}
+    
+    {showModal === 'Regist' && <RegisterModal 
+      show={showRegistrationModal}
+      theme={theme} 
+      openLoginModal={openLoginModal} 
+      handleClose={closeRegistrationModal}
+    />}
+
+
 
 
 

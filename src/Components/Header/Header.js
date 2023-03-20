@@ -10,7 +10,7 @@ function Header(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Explore Qs</Nav.Link>
+            <Nav.Link >Explore Qs</Nav.Link>
             <Nav.Link onClick={props.openAskModal}>Ask a Q</Nav.Link>
           </Nav>
           <Nav className="ml-auto">
