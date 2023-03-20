@@ -1,12 +1,63 @@
+/* LIGHT THEME SETTINGS */
 .light-theme {
   background-color: #f8f9fa;
   color: #212529;
 }
 
+.light-theme .modal-content {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.light-theme input,
+.light-theme textarea {
+  background-color: #f3f4f6;
+  color: #212529;
+}
+
+.light-theme input:focus,
+.light-theme textarea:focus {
+  background-color: #f8f9fa;
+  color: #212529;
+  box-shadow: none;
+}
+/* LIGHT THEME SETTINGS - END*/
+
+
+/* DARK THEME SETTINGS */
 .dark-theme {
   background-color: #343a40;
   color: #fff;
+  
 }
+
+.dark-theme .modal-content {
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+}
+
+.dark-theme input,
+.dark-theme textarea {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.dark-theme .form-control:focus {
+  background-color: rgba(0, 0, 0, 0.644);
+  color: #fff;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+/* DARK THEME SETTINGS - END*/
 
 .root {
   height: 100vh;
@@ -15,4 +66,35 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  
 }
+
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  background-color: #a1a1a1;
+  border-radius: 10px;
+  }
+  
+  /* Add dark theme styles */
+  .dark-theme {
+  background-color: #343a40;
+  color: #fff;
+  }
+  
+  ::-webkit-scrollbar-track.dark-theme {
+  background-color: #212529;
+  }
+  
+  ::-webkit-scrollbar-thumb.dark-theme {
+  background-color: #8c8c8c;
+  }
