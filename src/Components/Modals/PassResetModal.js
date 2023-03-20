@@ -1,10 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './../../App.css'
-function AskModal(props) {
-
-
-
+function PassResetModal(props) {
     return (
         <Modal
             show={props.show}
@@ -12,19 +9,25 @@ function AskModal(props) {
             contentClassName={props.theme === "light" ? "light-theme" : "dark-theme"}      
         >
             <Modal.Header closeButton>
-                <Modal.Title>What would you like to know?</Modal.Title>
+                <Modal.Title>Enter Your email address</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Control as="textarea" rows={3} />
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Control
+                            type="email"
+                            placeholder="name@example.com"
+                            autoFocus
+                        />
                     </Form.Group>
                 </Form>
-
             </Modal.Body>
             <Modal.Footer>
                 <Button  bg={props.theme} variant={props.theme}  onClick={props.handleClose}>
-                    Submit
+                    Cancel
+                </Button>
+                <Button  bg={props.theme} variant={props.theme}  onClick={props.handleClose}>
+                    Send Password Reset
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -32,4 +35,4 @@ function AskModal(props) {
 
 }
 
-export default AskModal;
+export default PassResetModal;

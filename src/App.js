@@ -2,6 +2,9 @@ import './App.css';
 import { useState } from 'react';
 import  Header  from './Components/Header/Header';
 import AskModal from './Components/Modals/AskModal';
+import LoginModal from './Components/Modals/LoginModal';
+import PassResetModal from './Components/Modals/PassResetModal';
+import RegisterModal from './Components/Modals/RegisterModal';
 
 function App() {
 
@@ -15,10 +18,30 @@ function App() {
     }
   }
 
-  // ask modal controls
+  // modal control state
+  const [showModal, setShowModal] = useState('');
+
+  // new question modal controls
   const [showAskModal, setShowAskModal] = useState(false);
-  const openAskModal = () => { setShowAskModal(true); }
+  const openAskModal = () => { setShowModal('Ask'); setShowAskModal(true); }
   const closeAskModal = () => { setShowAskModal(false); }
+
+  // login modal controls
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const openLoginModal = () => { setShowModal('Login'); setShowLoginModal(true); }
+  const closeLoginModal = () => { setShowLoginModal(false); }
+
+  // password reset modal controls
+  const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
+  const openPasswordResetModal = () => { setShowModal('Pass'); setShowPasswordResetModal(true); }
+  const closePasswordResetModal = () => { setShowPasswordResetModal(false); }
+
+  // registration modal controls
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const openRegistrationModal = () => { setShowModal('Regist'); setShowRegistrationModal(true); }
+  const closeRegistrationModal = () => { setShowRegistrationModal(false); }
+
+
 
   return (<>
 
@@ -26,15 +49,21 @@ function App() {
       theme={theme} 
       toggleTheme={toggleTheme} 
       openAskModal={openAskModal} 
+      openLoginModal={openLoginModal}
     />
 
     {/* container for app content, used for dark/light theme */}
     <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}>
-      
-    <AskModal show={showAskModal} theme={theme} handleClose={closeAskModal}/>
+    
+    {showModal === 'Ask' && <AskModal show={showAskModal} theme={theme} handleClose={closeAskModal}/>}
+    {showModal === 'Login' && <LoginModal show={showLoginModal} theme={theme} handleClose={closeLoginModal} openPasswordResetModal={openPasswordResetModal} openRegistrationModal={openRegistrationModal}/>}
+    {showModal === 'Pass' && <PassResetModal show={showPasswordResetModal} theme={theme} handleClose={closePasswordResetModal} />}
+    {showModal === 'Regist' && <RegisterModal show={showRegistrationModal} theme={theme} handleClose={closeRegistrationModal} />}
 
-
-
+    {/* <AskModal show={showAskModal} theme={theme} handleClose={closeAskModal}/>
+    <LoginModal show={showLoginModal} theme={theme} handleClose={closeLoginModal} openPasswordResetModal={openPasswordResetModal} openRegistrationModal={openRegistrationModal}/>
+    <PassResetModal show={showPasswordResetModal} theme={theme} handleClose={closePasswordResetModal} />
+    <RegisterModal show={showRegistrationModal} theme={theme} handleClose={closeRegistrationModal} /> */}
 
 
 

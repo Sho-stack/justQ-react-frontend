@@ -14,7 +14,7 @@ function Header(props) {
             <Nav.Link onClick={props.openAskModal}>Ask a Q</Nav.Link>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Link href="#login">Login</Nav.Link>
+            <Nav.Link onClick={props.openLoginModal}>Login</Nav.Link>
             <Button bg={props.theme} variant={props.theme} onClick={props.toggleTheme}>  
               {props.theme === "light" ? <BsMoon /> : <BsSun />}
             </Button>
