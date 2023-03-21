@@ -1,10 +1,8 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './../../App.css'
+
 function AskModal(props) {
-
-
-
     return (
         <Modal
             show={props.show}
@@ -23,13 +21,12 @@ function AskModal(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button  bg={props.theme} variant='success' size="lg" onClick={props.handleClose}>
+                <Button  bg={props.theme} variant={props.theme} size="lg" onClick={props.handleClose}>
                     ASK
                 </Button>
             </Modal.Footer>
         </Modal>
     );
-
 }
 
 export default AskModal;

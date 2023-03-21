@@ -77,10 +77,6 @@ function App() {
       handleClose={closeRegistrationModal}
     />}
 
-
-
-
-
     </div>
     {/* end of theme container */}
   </>);

@@ -1,32 +1,22 @@
 /* LIGHT THEME SETTINGS */
+.light-theme {
+  background-color: #fff;
+  color: #000;
+  box-shadow: rgb(167, 16, 16);  
+}
 
+.light-theme input { border-color:#cccccc; border-style:solid; padding:7px; text-align:left; border-width:1px; font-size:17px; border-radius:7px; box-shadow: 0px 0px 9px 0px rgba(42,42,42,.20);  } 
+.light-theme input:focus { outline:none; } 
 
 /* LIGHT THEME SETTINGS - END*/
 
 
+
 /* DARK THEME SETTINGS */
-.dark-theme {
-  background-color: #343a40;
-  color: #fff;
-  box-shadow: rgb(167, 16, 16);  
-}
-
-.dark-theme .modal-content {
-  background-color: #343a40;
-  color: #fff;
-  border: none;
-}
-
+.dark-theme { background-color: #343a40;  color: #fff; }
 .dark-theme input,
-.dark-theme textarea {
-  background-color: #343a40;
-  color: #fff;
-}
-
-.dark-theme .form-control:focus {
-  background-color: rgba(0, 0, 0, 0.644);
-  color: #fff;
-}
+.dark-theme textarea { padding:10px; font-size:17px; border-width:2px; border-radius:3px; border-style:solid; background-color:#454545; color:#d4d4d4; border-color:#7d7d7d;  } 
+.dark-theme .form-control:focus { background-color: rgba(0, 0, 0, 0.644); color: #fff; }
 
 .modal-header {
   border-bottom: none;
@@ -36,6 +26,8 @@
   border-top: none;
 }
 /* DARK THEME SETTINGS - END*/
+
+
 
 .root {
   height: 100vh;
@@ -47,4 +39,11 @@
   
 }
 
+.nav-button{
+  border: none;
+  outline: none;
+}
 
+textarea {
+  max-height: 200px; /* set the maximum height to whatever value you want */
+}

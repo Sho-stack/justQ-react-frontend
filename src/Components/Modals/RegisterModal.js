@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
-import {BsArrowLeftCircle, BsSticky} from 'react-icons/bs';
+import {BsArrowLeftCircle} from 'react-icons/bs';
 import './../../App.css'
+
 function RegisterModal(props) {
     return (
         <Modal
@@ -49,7 +50,7 @@ function RegisterModal(props) {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <FloatingLabel
                                 controlId="floatingInput"
-                                label="Password (the same again)"
+                                label="Password (the same one)"
                                 className="mb-3"
                             >
                             <Form.Control type="password" placeholder="" />
@@ -62,7 +63,7 @@ function RegisterModal(props) {
                     <BsArrowLeftCircle />&nbsp;
                     LOGIN
                 </Button>
-                <Button  bg={props.theme} variant='success' size="lg" onClick={props.handleClose}>
+                <Button  bg={props.theme} variant={props.theme} size="lg" onClick={props.handleClose}>
                     SIGN UP
                 </Button>
             </Modal.Footer>

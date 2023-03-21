@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
-import {BsArrowLeftCircle, BsSticky} from 'react-icons/bs';
+import {BsArrowLeftCircle} from 'react-icons/bs';
 import './../../App.css'
+
 function PassResetModal(props) {
     return (
         <Modal
@@ -34,7 +35,7 @@ function PassResetModal(props) {
                     <BsArrowLeftCircle />&nbsp;
                     LOGIN
                 </Button>
-                <Button  bg={props.theme} variant='success' size="lg" onClick={props.handleClose}>
+                <Button  bg={props.theme} variant={props.theme} size="lg" onClick={props.handleClose}>
                     RESET
                 </Button>
             </Modal.Footer>

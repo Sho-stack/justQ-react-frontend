@@ -1,11 +1,11 @@
 import React from 'react';
-import { Modal, Button, Form, Container, FloatingLabel } from 'react-bootstrap';
-import { BsSticky, BsPass, BsFillHouseAddFill} from 'react-icons/bs';
+import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
+import { BsUnlock, BsTerminal } from 'react-icons/bs';
+import { BiLogInCircle } from 'react-icons/bi';
+import { MdLogin }  from 'react-icons/md';
 import './../../App.css'
+
 function LoginModal(props) {
-
-
-
     return (
         <Modal
             show={props.show}
@@ -16,9 +16,6 @@ function LoginModal(props) {
                 <Modal.Title>JustQ / LOGIN</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-
-
-
                 <Form>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <FloatingLabel
@@ -33,36 +30,31 @@ function LoginModal(props) {
                             />
                         </FloatingLabel>
                     </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <FloatingLabel
-                            controlId="floatingInput"
-                            label="Password"
-                            className="mb-3"
-                        >
+                        <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
                             <Form.Control type="password" placeholder="Password" />
                         </FloatingLabel>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Keep me logged in" />
-                    </Form.Group>
-                    <Form.Group>
 
+                    <Form.Group>
+                        <Button    variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={props.openPasswordResetModal}>
+                            <BsUnlock /> forgot password?
+                        </Button>&nbsp;
+                        <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={props.openRegistrationModal}>
+                            < BsTerminal /> sign-up
+                        </Button>
                     </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        &nbsp;<Form.Check type="checkbox" label="&nbsp;Stay logged in" />
+                    </Form.Group>
+
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Container>
-                    <Button   bg={props.theme} variant={props.theme} size="sm" onClick={props.openPasswordResetModal}>
-                        <BsPass /> reset password
-                    </Button>&nbsp;
-                    <Button  bg={props.theme} variant={props.theme} size="sm"onClick={props.openRegistrationModal}>
-                        < BsFillHouseAddFill /> sign-up
-                    </Button>
-                </Container>
-
-                <Button  bg={props.theme} variant='success' size="lg" onClick={props.handleClose}>
-
-                    LOG IN
+                <Button  bg={props.theme} variant={props.theme} size="lg" onClick={props.handleClose}>
+                     LOGIN&nbsp;< MdLogin />
                 </Button>
             </Modal.Footer>
         </Modal>
