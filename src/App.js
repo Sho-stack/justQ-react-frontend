@@ -5,9 +5,9 @@ import AskModal from './Components/Modals/AskModal';
 import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from './config.js';
 
 function App() {
 
@@ -62,11 +62,21 @@ function App() {
 
   // user login state
   const [user, setUser] = useState(null);
+  
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    fetch(`${BASE_URL}/check_login`, {
+      method: 'GET',
+      credentials: 'include' // Add this line
+    })
+    .then(response => response.json())
+    .then(data => {
+        setUser(data.user)
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
   }, []);
 
   return (<>

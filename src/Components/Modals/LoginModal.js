@@ -27,7 +27,8 @@ function LoginModal(props) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
+            credentials: 'include' // Add this line
         })
         .then(response => {
             if (!response.ok) {
@@ -41,12 +42,10 @@ function LoginModal(props) {
             console.log(data)
             if (!data.error) {
                 props.setSuccessText(data.message);
-                localStorage.setItem('user', JSON.stringify(data.user)); // save user data in localStorage
                 props.setUser(data.user);
                 props.handleClose();
             }
         })
-        
         .catch(error => {
             props.setErrorText(error.message);
             console.error('Error fetching data:', error);

@@ -7,13 +7,13 @@ function Header(props) {
   const handleLogout = () => {
     fetch(`${BASE_URL}/logout`, {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include' 
     })
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to log out');
       }
-            localStorage.removeItem('user'); // remove user data from localStorage
+      localStorage.removeItem('user'); // remove user data from localStorage
       props.setUser(null);
       props.setSuccessText('Logged out');
     })
