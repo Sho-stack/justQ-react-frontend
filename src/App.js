@@ -8,10 +8,11 @@ import RegisterModal from './Components/Modals/RegisterModal';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button } from 'react-bootstrap';
 
 function App() {
 
+
+  
   // darkmode/lightmode controls
   const [theme, setTheme] = useState("dark");
   const toggleTheme = () => {if (theme === "light") {setTheme("dark");} else {setTheme("light");}}
@@ -36,10 +37,10 @@ function App() {
     }
   }, [successText, errorText, warningText]);
 
-  // modal control state
+  // modal control state ( ! important )
   const [showModal, setShowModal] = useState('');
 
-  // new question modal controls
+  // new question modal controls 
   const [showAskModal, setShowAskModal] = useState(false);
   const openAskModal = () => { setShowModal('Ask'); setShowAskModal(true); }
   const closeAskModal = () => { setShowAskModal(false); }
@@ -59,7 +60,14 @@ function App() {
   const openRegistrationModal = () => { setShowModal('Regist'); setShowRegistrationModal(true); }
   const closeRegistrationModal = () => { setShowRegistrationModal(false); }
 
-
+  // user login state
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (<>
 
@@ -68,6 +76,11 @@ function App() {
       toggleTheme={toggleTheme} 
       openAskModal={openAskModal} 
       openLoginModal={openLoginModal}
+      user={user}
+      setUser={setUser}
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
     />
 
     {/* container for app content, used for dark/light theme */}
@@ -85,6 +98,10 @@ function App() {
       handleClose={closeLoginModal} 
       openPasswordResetModal={openPasswordResetModal} 
       openRegistrationModal={openRegistrationModal}
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
+      setUser={setUser}
     />}
 
     {showModal === 'Pass' && <PassResetModal 
@@ -106,7 +123,7 @@ function App() {
 
 
     <ToastContainer
-      position="top-right"
+      position="bottom-right"
       autoClose={3000}
       hideProgressBar
       newestOnTop
@@ -116,9 +133,7 @@ function App() {
       draggable
       theme={theme}
     />
-      <Button onClick={() => setErrorText('nay!')}>Warning !</Button>
-      <Button onClick={() => setWarningText('mhm!')}>Error !</Button>
-      <Button onClick={() => setSuccessText('yeay!')}>Success !</Button>
+
 
     </div>
     

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
 import {BsArrowLeftCircle} from 'react-icons/bs';
 import './../../App.css'
+import { BASE_URL } from '../../config.js';
 
 function RegisterModal(props) {
 
@@ -23,7 +24,7 @@ function RegisterModal(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch('http://localhost:5000/register', {
+        fetch(`${BASE_URL}/register`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
