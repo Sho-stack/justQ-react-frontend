@@ -1,16 +1,40 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import  Header  from './Components/Header/Header';
 import AskModal from './Components/Modals/AskModal';
 import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Button } from 'react-bootstrap';
+
 function App() {
 
   // darkmode/lightmode controls
   const [theme, setTheme] = useState("dark");
   const toggleTheme = () => {if (theme === "light") {setTheme("dark");} else {setTheme("light");}}
+
+  // toast controls
+  const [successText, setSuccessText] = useState('');
+  const [errorText, setErrorText] = useState('');
+  const [warningText, setWarningText] = useState('');
+
+  useEffect(() => {
+    if (successText) {
+      toast.success(successText);
+      setSuccessText('');
+    }
+    if (errorText) {
+      toast.error(errorText);
+      setErrorText('');
+    }
+    if (warningText) {
+      toast.warning(warningText);
+      setWarningText('');
+    }
+  }, [successText, errorText, warningText]);
 
   // modal control state
   const [showModal, setShowModal] = useState('');
@@ -75,9 +99,29 @@ function App() {
       theme={theme} 
       openLoginModal={openLoginModal} 
       handleClose={closeRegistrationModal}
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
     />}
 
+
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      theme={theme}
+    />
+      <Button onClick={() => setErrorText('nay!')}>Warning !</Button>
+      <Button onClick={() => setWarningText('mhm!')}>Error !</Button>
+      <Button onClick={() => setSuccessText('yeay!')}>Success !</Button>
+
     </div>
+    
     {/* end of theme container */}
   </>);
   

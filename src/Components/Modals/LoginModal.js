@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
 import { BsUnlock, BsTerminal } from 'react-icons/bs';
-import { BiLogInCircle } from 'react-icons/bi';
 import { MdLogin }  from 'react-icons/md';
 import './../../App.css'
 
