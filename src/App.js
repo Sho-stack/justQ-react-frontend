@@ -72,14 +72,14 @@ function App() {
       method: 'GET',
       credentials: 'include' // Add this line
     })
-    .then(response => response.json())
+    .then((response) => response.json()) // Declare response variable here
     .then(data => {
         setUser(data.user)
     })
     .catch(error => {
         console.error('Error:', error);
     });
-
+  
   }, []);
 
   // password reset controls
