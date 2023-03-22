@@ -5,14 +5,13 @@ import AskModal from './Components/Modals/AskModal';
 import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
+import NewPassModal from './Components/Modals/NewPassModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from './config.js';
 
 function App() {
 
-
-  
   // darkmode/lightmode controls
   const [theme, setTheme] = useState("dark");
   const toggleTheme = () => {if (theme === "light") {setTheme("dark");} else {setTheme("light");}}
@@ -55,6 +54,12 @@ function App() {
   const openPasswordResetModal = () => { setShowModal('Pass'); setShowPasswordResetModal(true); }
   const closePasswordResetModal = () => { setShowPasswordResetModal(false); }
 
+  // new password modal controls
+  const [showNewPassModal, setShowNewPassModal] = useState(false)
+  const openNewPassModal = () => { setShowModal('PassChange'); setShowNewPassModal(true); }
+  const closeNewPassModal = () => { setShowNewPassModal(false); }
+
+
   // registration modal controls
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const openRegistrationModal = () => { setShowModal('Regist'); setShowRegistrationModal(true); }
@@ -62,7 +67,6 @@ function App() {
 
   // user login state
   const [user, setUser] = useState(null);
-  
   useEffect(() => {
     fetch(`${BASE_URL}/check_login`, {
       method: 'GET',
@@ -71,13 +75,31 @@ function App() {
     .then(response => response.json())
     .then(data => {
         setUser(data.user)
-        console.log(data);
     })
     .catch(error => {
         console.error('Error:', error);
     });
 
   }, []);
+
+  // password reset controls
+  const [resetToken, setResetToken] = useState(null);
+  console.log(resetToken)
+
+  useEffect(() => {
+    const url = window.location.href;
+    const regex = /reset-password\/(.+)$/;
+    const match = url.match(regex);
+
+    if (match && match[1]) {
+      setResetToken(match[1]);
+      openNewPassModal();
+      window.history.pushState(null, null, '/');
+    }
+  }, []);
+
+  // end of password reset controls
+
 
   return (<>
 
@@ -114,13 +136,6 @@ function App() {
       setUser={setUser}
     />}
 
-    {showModal === 'Pass' && <PassResetModal 
-      show={showPasswordResetModal} 
-      theme={theme} 
-      openLoginModal={openLoginModal} 
-      handleClose={closePasswordResetModal} 
-    />}
-    
     {showModal === 'Regist' && <RegisterModal 
       show={showRegistrationModal}
       theme={theme} 
@@ -130,6 +145,37 @@ function App() {
       setWarningText={setWarningText}
       setErrorText={setErrorText}
     />}
+
+    {showModal === 'Pass' && <PassResetModal 
+      show={showPasswordResetModal} 
+      theme={theme} 
+      openLoginModal={openLoginModal} 
+      handleClose={closePasswordResetModal} 
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
+    />}
+
+
+
+
+
+
+
+    {showModal === 'PassChange' && (
+      <NewPassModal
+        show={showNewPassModal}
+        theme={theme}
+        resetToken={resetToken}
+        handleClose={closeNewPassModal}
+        setSuccessText={setSuccessText}
+        setWarningText={setWarningText}
+        setErrorText={setErrorText}
+      />
+    )}
+
+
+
 
 
     <ToastContainer

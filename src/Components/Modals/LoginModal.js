@@ -64,9 +64,9 @@ function LoginModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Group className="mb-3">
                         <FloatingLabel
-                            controlId="floatingInput"
+
                             label="Email address"
                             className="mb-3"
                         >
