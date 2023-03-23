@@ -6,6 +6,7 @@ import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
 import CardModal from './Components/Modals/CardModal';
+import CardListModal from './components/Modals/CardListModal';
 import NewPassModal from './Components/Modals/NewPassModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -64,6 +65,11 @@ function App() {
   const [showCardModal, setShowCardModal] = useState(false);
   const openCardModal = () => { setShowModal('Card'); setShowCardModal(true); }
   const closeCardModal = () => { setShowCardModal(false); }
+
+  // card list modal controls
+  const [showCardListModal, setShowCardListModal] = useState(false);
+  const openCardListModal = () => { setShowModal('CardList'); setShowCardListModal(true); }
+  const closeCardListModal = () => { setShowCardListModal(false); }
 
   // registration modal controls
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -184,6 +190,14 @@ function App() {
       handleClose={closeCardModal}
     />}   
 
+  {showModal === 'CardList' && 
+  <CardListModal
+    show={showCardListModal}
+    theme={theme}
+    handleClose={closeCardListModal}
+    cards={cards}
+  />
+}
 
 
     <ToastContainer
