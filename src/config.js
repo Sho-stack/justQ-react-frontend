@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://justq-flask.herokuapp.com';
+export const BASE_URL = 'http://michalszostak.pythonanywhere.com';
