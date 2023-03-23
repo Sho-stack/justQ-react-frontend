@@ -70,9 +70,6 @@ function App() {
   const openRegistrationModal = () => { setShowModal('Regist'); setShowRegistrationModal(true); }
   const closeRegistrationModal = () => { setShowRegistrationModal(false); }
 
-
-
-
   // user login state
   const [user, setUser] = useState(null);
   useEffect(() => {

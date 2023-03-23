@@ -20,6 +20,9 @@ function CardModal(props) {
         <div className="author">
           <p>{props.author}</p>
         </div>
+        <div className="body">
+            <p>{props.body}</p>
+        </div>
         <div className="voting">
           <Button variant="outline-danger" onClick={props.handleDownvote}>Downvote</Button>{' '}
           <Button variant="outline-success" onClick={props.handleUpvote}>Upvote</Button>{' '}
