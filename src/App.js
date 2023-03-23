@@ -5,6 +5,7 @@ import AskModal from './Components/Modals/AskModal';
 import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
+import CardModal from './Components/Modals/CardModal';
 import NewPassModal from './Components/Modals/NewPassModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -59,11 +60,18 @@ function App() {
   const openNewPassModal = () => { setShowModal('PassChange'); setShowNewPassModal(true); }
   const closeNewPassModal = () => { setShowNewPassModal(false); }
 
+  // card modal controls
+  const [showCardModal, setShowCardModal] = useState(false);
+  const openCardModal = () => { setShowModal('Card'); setShowCardModal(true); }
+  const closeCardModal = () => { setShowCardModal(false); }
 
   // registration modal controls
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const openRegistrationModal = () => { setShowModal('Regist'); setShowRegistrationModal(true); }
   const closeRegistrationModal = () => { setShowRegistrationModal(false); }
+
+
+
 
   // user login state
   const [user, setUser] = useState(null);
@@ -173,8 +181,11 @@ function App() {
         setErrorText={setErrorText}
       />
     )}
-
-
+    {showModal === 'Card' && <CardModal 
+      show={showCardModal} 
+      theme={theme} 
+      handleClose={closeCardModal}
+    />}   
 
 
 
