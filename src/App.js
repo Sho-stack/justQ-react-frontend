@@ -6,6 +6,7 @@ import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
 import NewPassModal from './Components/Modals/NewPassModal';
+import QuestionList from './Components/QuestionList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from './config.js';
@@ -85,7 +86,6 @@ function App() {
   // password reset controls
   const [resetToken, setResetToken] = useState(null);
   console.log(resetToken)
-
   useEffect(() => {
     const url = window.location.href;
     const regex = /reset-password\/(.+)$/;
@@ -97,8 +97,25 @@ function App() {
       window.history.pushState(null, null, '/');
     }
   }, []);
-
   // end of password reset controls
+
+  // question list controls
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    console.log('fetching questions...')
+    fetch(`${BASE_URL}/questions`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+      setQuestions(data.questions);
+      console.log('questions:', data);
+    })
+    .catch(error => {
+      console.error('Error fetching questions:', error);
+    });
+  }, [showAskModal]);
 
 
   return (<>
@@ -122,6 +139,9 @@ function App() {
       show={showAskModal} 
       theme={theme} 
       handleClose={closeAskModal}
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
     />}
 
     {showModal === 'Login' && <LoginModal 
@@ -190,6 +210,13 @@ function App() {
       theme={theme}
     />
 
+    <QuestionList 
+      theme={theme}  
+      questions={questions}         
+      setSuccessText={setSuccessText}
+      setWarningText={setWarningText}
+      setErrorText={setErrorText}
+    />
 
     </div>
     
