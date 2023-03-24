@@ -30,24 +30,18 @@ function Header(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Button
-              bg={props.theme}
-              variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
-              size="lg"
-              onClick={() => {}}
-              className="nav-button"
-            >
-              Explore Qs
-            </Button>
-            <Button
-              bg={props.theme}
-              variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
-              size="lg"
-              onClick={props.openAskModal}
-              className="nav-button"
-            >
-              Ask a Q
-            </Button>
+
+            {props.user && (
+              <Button
+                bg={props.theme}
+                variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
+                size="lg"
+                onClick={props.openAskModal}
+                className="nav-button"
+              >
+                Ask a Q
+              </Button>
+            )}
           </Nav>
           <Nav className="ml-auto">
             

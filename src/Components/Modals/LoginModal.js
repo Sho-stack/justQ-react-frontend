@@ -39,7 +39,6 @@ function LoginModal(props) {
             return response.json();
         })
         .then(data => {
-            console.log(data)
             if (!data.error) {
                 props.setSuccessText(data.message);
                 localStorage.setItem('user', JSON.stringify(data.user));

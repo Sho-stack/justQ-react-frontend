@@ -14,14 +14,28 @@ import { BASE_URL } from './config.js';
 function App() {
 
   // darkmode/lightmode controls
-  const [theme, setTheme] = useState("dark");
-  const toggleTheme = () => {if (theme === "light") {setTheme("dark");} else {setTheme("light");}}
+  const [theme, setTheme] = useState(() => {
+    const storedTheme = localStorage.getItem('theme');
+    return storedTheme ? storedTheme : 'dark';});
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      setTheme('light');
+      localStorage.setItem('theme', 'light');
+ }};
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }},
+    []);
 
   // toast controls
   const [successText, setSuccessText] = useState('');
   const [errorText, setErrorText] = useState('');
   const [warningText, setWarningText] = useState('');
-
   useEffect(() => {
     if (successText) {
       toast.success(successText);
@@ -34,8 +48,8 @@ function App() {
     if (warningText) {
       toast.warning(warningText);
       setWarningText('');
-    }
-  }, [successText, errorText, warningText]);
+    }}, 
+    [successText, errorText, warningText]);
 
   // modal control state ( ! important )
   const [showModal, setShowModal] = useState('');
@@ -76,6 +90,7 @@ function App() {
     .then(response => response.json())
     .then(data => {
         setUser(data.user)
+        setSuccessText('Logged in successfully');
     })
     .catch(error => {
         console.error('Error:', error);
@@ -96,9 +111,8 @@ function App() {
       window.history.pushState(null, null, '/');
     }
   }, []);
-  // end of password reset controls
 
-  // question list controls
+  // questions list controls
   const [questions, setQuestions] = useState([]);
   const [refreshQuestions, setRefreshQuestions] = useState(false);
   useEffect(() => {
@@ -125,8 +139,7 @@ function App() {
 
   return (<>
 
-    <Header 
-      theme={theme} 
+    <Header  theme={theme} 
       toggleTheme={toggleTheme} 
       openAskModal={openAskModal} 
       openLoginModal={openLoginModal}
@@ -134,34 +147,31 @@ function App() {
       setUser={setUser}
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-    />
+      setErrorText={setErrorText}/>
 
-    {/* container for app content, used for dark/light theme */}
-    <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}>
-    
+    <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}> {/* container for app content, used for dark/light theme */}
+
     {showModal === 'Ask' && <AskModal 
       show={showAskModal} 
       theme={theme} 
       handleClose={closeAskModal}
+      refreshQuestions={refreshQuestions}
+      setRefreshQuestions={setRefreshQuestions}      
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-      refreshQuestions={refreshQuestions}
-      setRefreshQuestions={setRefreshQuestions}
-    />}
+      setErrorText={setErrorText}/>}
 
     {showModal === 'Login' && <LoginModal 
       show={showLoginModal} 
       theme={theme} 
+      setUser={setUser}
       handleClose={closeLoginModal} 
       openPasswordResetModal={openPasswordResetModal} 
       openRegistrationModal={openRegistrationModal}
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-      setUser={setUser}
-    />}
+      setErrorText={setErrorText}/>}
+
 
     {showModal === 'Regist' && <RegisterModal 
       show={showRegistrationModal}
@@ -170,8 +180,7 @@ function App() {
       handleClose={closeRegistrationModal}
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-    />}
+      setErrorText={setErrorText}/>}
 
     {showModal === 'Pass' && <PassResetModal 
       show={showPasswordResetModal} 
@@ -180,33 +189,18 @@ function App() {
       handleClose={closePasswordResetModal} 
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-    />}
-
-
-
-
-
-
-
-    {showModal === 'PassChange' && (
-      <NewPassModal
+      setErrorText={setErrorText}/>}
+      
+    {showModal === 'PassChange' && (<NewPassModal
         show={showNewPassModal}
         theme={theme}
         resetToken={resetToken}
         handleClose={closeNewPassModal}
         setSuccessText={setSuccessText}
         setWarningText={setWarningText}
-        setErrorText={setErrorText}
-      />
-    )}
+        setErrorText={setErrorText}/>)}
 
-
-
-
-
-    <ToastContainer
-      position="bottom-right"
+    <ToastContainer  position="bottom-right"
       autoClose={3000}
       hideProgressBar
       newestOnTop
@@ -214,20 +208,16 @@ function App() {
       rtl={false}
       pauseOnFocusLoss
       draggable
-      theme={theme}
-    />
+      theme={theme}/>
 
     <QuestionList 
       theme={theme}  
       questions={questions}         
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}
-    />
+      setErrorText={setErrorText}/>
 
-    </div>
-    
-    {/* end of theme container */}
+    </div>{/* end of app's theme container */}
   </>);
   
 }
