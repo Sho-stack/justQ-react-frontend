@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 function Question(props) {
     return (
-        <Card className={`mb-3 ${props.Reacttheme === "light" ? "light-theme" : "dark-theme"}`}>
+        <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
             {console.log('card re-rendered')}
 
             <Card.Body>
