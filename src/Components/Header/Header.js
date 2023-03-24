@@ -77,11 +77,6 @@ function Header(props) {
               Logout
             </Button>
             
-            
-            
-            
-            
-            
             </>): (
               <Button
                 bg={props.theme}

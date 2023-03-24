@@ -33,6 +33,7 @@ function AskModal(props) {
         .then(data => {
             if (!data.error) {
                 props.setSuccessText('Your question has been posted!');
+                props.setRefreshQuestions(!props.refreshQuestions)
                 props.handleClose();
             }
         })

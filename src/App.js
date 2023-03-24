@@ -43,7 +43,7 @@ function App() {
   // new question modal controls 
   const [showAskModal, setShowAskModal] = useState(false);
   const openAskModal = () => { setShowModal('Ask'); setShowAskModal(true); }
-  const closeAskModal = () => { setShowAskModal(false); }
+  const closeAskModal = () => { setShowAskModal(false); setRefreshQuestions(!refreshQuestions)}
 
   // login modal controls
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -85,7 +85,6 @@ function App() {
 
   // password reset controls
   const [resetToken, setResetToken] = useState(null);
-  console.log(resetToken)
   useEffect(() => {
     const url = window.location.href;
     const regex = /reset-password\/(.+)$/;
@@ -101,21 +100,27 @@ function App() {
 
   // question list controls
   const [questions, setQuestions] = useState([]);
+  const [refreshQuestions, setRefreshQuestions] = useState(false);
   useEffect(() => {
-    console.log('fetching questions...')
     fetch(`${BASE_URL}/questions`, {
       method: 'GET',
       credentials: 'include'
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`Error fetching questions: ${response.statusText}`);
+      }
+    })
     .then(data => {
       setQuestions(data.questions);
-      console.log('questions:', data);
     })
     .catch(error => {
       console.error('Error fetching questions:', error);
+      setErrorText(`Error fetching questions: ${error.message}`);
     });
-  }, [showAskModal]);
+  }, [refreshQuestions]);
 
 
   return (<>
@@ -142,6 +147,8 @@ function App() {
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
       setErrorText={setErrorText}
+      refreshQuestions={refreshQuestions}
+      setRefreshQuestions={setRefreshQuestions}
     />}
 
     {showModal === 'Login' && <LoginModal 

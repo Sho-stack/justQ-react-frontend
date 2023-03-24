@@ -17,7 +17,6 @@ function Question(props) {
             <Card.Footer>
             <Card.Text>{question.net_votes} points</Card.Text>
             </Card.Footer>
-            
         </Card>
     );
 }

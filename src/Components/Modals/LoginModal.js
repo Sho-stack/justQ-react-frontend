@@ -42,6 +42,7 @@ function LoginModal(props) {
             console.log(data)
             if (!data.error) {
                 props.setSuccessText(data.message);
+                localStorage.setItem('user', JSON.stringify(data.user));
                 props.setUser(data.user);
                 props.handleClose();
             }
