@@ -90,10 +90,11 @@ function App() {
     .then(response => response.json())
     .then(data => {
         setUser(data.user)
-        setSuccessText('Logged in successfully');
+        setSuccessText('Login systems online');
     })
     .catch(error => {
         console.error('Error:', error);
+        setErrorText(`Error: ${error.message}`);
     });
 
   }, []);
@@ -215,7 +216,9 @@ function App() {
       questions={questions}         
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}/>
+      setErrorText={setErrorText}
+      user={user}
+    />
 
     </div>{/* end of app's theme container */}
   </>);

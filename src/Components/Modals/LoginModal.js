@@ -92,7 +92,9 @@ function LoginModal(props) {
                             />
                         </FloatingLabel>
                     </Form.Group>
-
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="&nbsp;Stay logged in" />
+                    </Form.Group>
                     <Form.Group>
                         <Button    variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={props.openPasswordResetModal}>
                             <BsUnlock /> forgot password?
@@ -102,9 +104,6 @@ function LoginModal(props) {
                         </Button>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        &nbsp;<Form.Check type="checkbox" label="&nbsp;Stay logged in" />
-                    </Form.Group>
 
                 </Form>
             </Modal.Body>
