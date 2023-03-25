@@ -19,8 +19,8 @@ function Question(props) {
             <Card.Header>
                <Card.Title>{question.content}
                &nbsp;
-                {props.user && (
-                  <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>
+               {props.user && question.user_id !== props.user.id && (
+                    <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>
                         {replyButtonText}&nbsp;
                       < BsReply /> 
                   </Button>
@@ -29,7 +29,7 @@ function Question(props) {
                 <Card.Subtitle className="mb-2 text-muted">{question.author} - {timeElapsed}
 
                 </Card.Subtitle>
-                {showReply && (
+                {showReply && props.user && question.user_id !== props.user.id && (
             <Row>
 
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
