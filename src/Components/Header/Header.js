@@ -13,7 +13,6 @@ function Header(props) {
       if (!response.ok) {
         throw new Error('Failed to log out');
       }
-      localStorage.removeItem('user'); // remove user data from localStorage
       props.setUser(null);
       props.setSuccessText('Logged out');
     })

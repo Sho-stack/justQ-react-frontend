@@ -6,7 +6,7 @@ import LoginModal from './Components/Modals/LoginModal';
 import PassResetModal from './Components/Modals/PassResetModal';
 import RegisterModal from './Components/Modals/RegisterModal';
 import NewPassModal from './Components/Modals/NewPassModal';
-import QuestionList from './Components/QuestionList';
+import QuestionList from './Components/Questions/QuestionList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from './config.js';
@@ -82,22 +82,35 @@ function App() {
 
   // user login state
   const [user, setUser] = useState(null);
+  console.log(user);
   useEffect(() => {
     fetch(`${BASE_URL}/check_login`, {
       method: 'GET',
-      credentials: 'include' // Add this line
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include', 
     })
-    .then(response => response.json())
-    .then(data => {
-        setUser(data.user)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        if (data.user) {
+          console.log('data: ',data)
+          setUser(data.user);
+        }
         setSuccessText('Login systems online');
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error:', error);
         setErrorText(`Error: ${error.message}`);
-    });
-
+      });
   }, []);
+
+  
 
   // password reset controls
   const [resetToken, setResetToken] = useState(null);

@@ -6,7 +6,15 @@ function QuestionList(props) {
   return (
     <Container>
       {props.questions.length ? props.questions.map((question) => (
-        <Question key={question.id} question={question} theme={props.theme} user={props.user}/>
+        <Question 
+        key={question.id} 
+        question={question} 
+        theme={props.theme} 
+        user={props.user}
+        setSuccessText={props.setSuccessText}
+        setWarningText={props.setWarningText}
+        setErrorText={props.setErrorText}
+      />
       )) : <p>No questions found</p>}
     </Container>
   );

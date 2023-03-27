@@ -9,26 +9,28 @@ function LoginModal(props) {
 
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '',
+        rememberMe: false
     });
 
     const handleChange = (event) => {
+        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setFormData({
           ...formData,
-          [event.target.name]: event.target.value
+          [event.target.name]: value
         });
-      };
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         fetch(`${BASE_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData),
-            credentials: 'include' // Add this line
+            credentials: 'include'
         })
         .then(response => {
             if (!response.ok) {
@@ -41,7 +43,6 @@ function LoginModal(props) {
         .then(data => {
             if (!data.error) {
                 props.setSuccessText(data.message);
-                localStorage.setItem('user', JSON.stringify(data.user));
                 props.setUser(data.user);
                 props.handleClose();
             }
@@ -51,13 +52,13 @@ function LoginModal(props) {
             console.error('Error fetching data:', error);
         });
     };
-    
+
 
     return (
         <Modal
             show={props.show}
             onHide={props.handleClose}
-            contentClassName={props.theme === "light" ? "light-theme" : "dark-theme"}      
+            contentClassName={props.theme === "light" ? "light-theme" : "dark-theme"}
         >
             <Modal.Header closeButton>
                 <Modal.Title>JustQ / LOGIN</Modal.Title>
@@ -83,7 +84,7 @@ function LoginModal(props) {
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
-                            <Form.Control 
+                            <Form.Control
                                 type="password"
                                 placeholder="Password"
                                 name="password"
@@ -93,7 +94,7 @@ function LoginModal(props) {
                         </FloatingLabel>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="&nbsp;Stay logged in" />
+                        <Form.Check type="checkbox" label="&nbsp;Stay logged in" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group>
                         <Button    variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={props.openPasswordResetModal}>
