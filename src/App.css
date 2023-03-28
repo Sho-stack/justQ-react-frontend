@@ -39,6 +39,33 @@
 }
 /* DARK THEME SETTINGS - END*/
 
+/* LANGUAGE SELECTOR STYLING */
+.language-select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5rem;
+  padding-right: 2rem;
+}
+
+.light-theme .language-select {
+  color: #000;
+  background-color: #fff;
+  border-color: #cccccc;
+}
+
+.dark-theme .language-select {
+  color: #d4d4d4;
+  background-color: #454545;
+  border-color: #7d7d7d;
+}
+
+.language-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+/* LANGUAGE SELECTOR STYLING - END */
 
 
 .root {

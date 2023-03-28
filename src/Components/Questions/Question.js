@@ -71,10 +71,29 @@ function Question(props) {
         });
     };
 
+    const getContentTranslation = () => {
+        const translations = {
+          'en': question.content_en,
+          'pl': question.content_pl,
+          'es': question.content_es,
+          'zh-CN': question.content_zh,
+          'hi': question.content_hi,
+          'ar': question.content_ar,
+          'pt': question.content_pt,
+          'bn': question.content_bn,
+          'ru': question.content_ru,
+          'ja': question.content_ja,
+          'pa': question.content_pa
+        };
+    
+        const translation = translations[props.language];
+        return translation === null || translation === '' ? question.content : translation;
+    };
+
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
             <Card.Header>
-               <Card.Title>{question.content}
+               <Card.Title>{getContentTranslation()}
                &nbsp;
                {props.user && question.user_id !== props.user.id && (
                     <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>

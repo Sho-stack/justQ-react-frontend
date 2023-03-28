@@ -1,4 +1,4 @@
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Form } from 'react-bootstrap';
 import { BsMoon, BsSun } from 'react-icons/bs';
 import { BASE_URL } from '../../config';
 import { MdAccountCircle } from 'react-icons/md';
@@ -85,6 +85,24 @@ function Header(props) {
             <Button bg={props.theme} variant={props.theme} onClick={props.toggleTheme}>
               {props.theme === 'light' ? <BsMoon /> : <BsSun />}
             </Button>
+            <Form.Select
+              className={`language-select me-2 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}
+              style={{ width: "auto" }}
+              size="sm"
+              onChange={(e) => props.setLanguage(e.target.value)}
+            >
+              <option value="en">English</option>
+              <option value="pl">Polish</option>
+              <option value="es">Spanish</option>
+              <option value="zh-CN">Chinese</option>
+              <option value="hi">Hindi</option>
+              <option value="ar">Arabic</option>
+              <option value="pt">Portuguese</option>
+              <option value="bn">Bengali</option>
+              <option value="ru">Russian</option>
+              <option value="ja">Japanese</option>
+              <option value="pa">Punjabi</option>
+          </Form.Select>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -5,7 +5,6 @@ import Question from './Question';
 function QuestionList(props) {
   return (
     <Container>
-      {console.log(props.questions)}
       {props.questions.length ? props.questions.map((question) => (
         <Question 
         key={question.id} 
@@ -15,6 +14,7 @@ function QuestionList(props) {
         setSuccessText={props.setSuccessText}
         setWarningText={props.setWarningText}
         setErrorText={props.setErrorText}
+        language={props.language}
       />
       )) : <p>No questions found</p>}
     </Container>

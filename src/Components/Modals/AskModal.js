@@ -34,7 +34,7 @@ function AskModal(props) {
         })
         .then(data => {
             if (!data.error) {
-                props.setSuccessText('Your question has been posted!');
+                props.setSuccessText('Your question has been translated!');
                 props.setRefreshQuestions(!props.refreshQuestions)
                 props.handleClose();
             }

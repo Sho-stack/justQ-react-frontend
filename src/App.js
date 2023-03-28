@@ -32,6 +32,9 @@ function App() {
     }},
     []);
 
+  // language controls
+  const [language, setLanguage] = useState('en');
+  console.log(language);
   // toast controls
   const [successText, setSuccessText] = useState('');
   const [errorText, setErrorText] = useState('');
@@ -82,7 +85,6 @@ function App() {
 
   // user login state
   const [user, setUser] = useState(null);
-  console.log(user);
   useEffect(() => {
     fetch(`${BASE_URL}/check_login`, {
       method: 'GET',
@@ -99,7 +101,6 @@ function App() {
       })
       .then(data => {
         if (data.user) {
-          console.log('data: ',data)
           setUser(data.user);
         }
         setSuccessText('Login systems online');
@@ -161,7 +162,9 @@ function App() {
       setUser={setUser}
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
-      setErrorText={setErrorText}/>
+      setErrorText={setErrorText}
+      setLanguage={setLanguage}
+    />
 
     <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}> {/* container for app content, used for dark/light theme */}
 
@@ -231,6 +234,7 @@ function App() {
       setWarningText={setWarningText}
       setErrorText={setErrorText}
       user={user}
+      language={language}
     />
 
     </div>{/* end of app's theme container */}
