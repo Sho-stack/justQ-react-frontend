@@ -4,6 +4,7 @@ import { BsReply } from 'react-icons/bs';
 import moment from 'moment';
 import { BASE_URL } from '../../config.js';
 import AnswerList from '../Answers/AnswerList.js';
+import {BsArrowUp, BsArrowDown} from 'react-icons/bs';
 
 function Question(props) {
     const question = props.question;
@@ -76,36 +77,57 @@ function Question(props) {
         });
     };
 
-    // const getContentTranslation = () => {
-    //     const translations = {
-    //       'en': question.content_en,
-    //       'pl': question.content_pl,
-    //       'es': question.content_es,
-    //       'zh-CN': question.content_zh,
-    //       'hi': question.content_hi,
-    //       'ar': question.content_ar,
-    //       'pt': question.content_pt,
-    //       'bn': question.content_bn,
-    //       'ru': question.content_ru,
-    //       'ja': question.content_ja,
-    //       'pa': question.content_pa
-    //     };
+    const [upvoted, setUpvoted] = useState(props.question.user_vote === 1);
+    const [netVotes, setNetVotes] = useState(question.net_votes);
+
+    const toggleUpvote = () => {
+        const newVoteValue = upvoted ? 0 : 1;
     
-    //     const translation = translations[props.language];
-    //     return translation === null || translation === '' ? question.content : translation;
-    // };
+        fetch(`${BASE_URL}/vote`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                question_id: props.question.id, 
+                vote: newVoteValue 
+            }),
+            credentials: 'include',
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(error.error);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.error) {
+                setUpvoted(!upvoted);
+                setNetVotes(netVotes + (newVoteValue === 1 ? 1 : -1));
+            }
+        })
+        .catch(error => {
+            console.error('Error updating vote:', error);
+        });
+};
 
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
             <Card.Header>
                <Card.Title>{props.question[`content_${props.language}`] || props.question.content}
                &nbsp;
-               {props.user && question.user_id !== props.user.id && (
+               {props.user && question.user_id !== props.user.id && (<>
                     <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>
                         {replyButtonText}&nbsp;
                     
                     </Button>
-                )}
+                    &nbsp;
+                    <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={toggleUpvote } active={upvoted}>
+                        + 1
+                    </Button>
+                    </>)}
                </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{question.author} - {timeElapsed}
 
@@ -141,6 +163,7 @@ function Question(props) {
                         </>
                     )}
                 </Button>
+
                 </Container>
 
             
@@ -164,7 +187,7 @@ function Question(props) {
             )}
             </Card.Body>
             <Card.Footer>
-            <Card.Text>{question.net_votes} points</Card.Text>
+            <Card.Text>{netVotes} points</Card.Text>
             </Card.Footer>
         </Card>
     );
