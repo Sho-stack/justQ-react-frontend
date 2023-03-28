@@ -102,16 +102,16 @@ function Header(props) {
               onChange={(e) => props.setLanguage(e.target.value)}
             >
               <option value="en">English</option>
-              <option value="pl">Polish</option>
-              <option value="es">Spanish</option>
-              <option value="zh">Chinese</option>
-              <option value="hi">Hindi</option>
-              <option value="ar">Arabic</option>
-              <option value="pt">Portuguese</option>
-              <option value="bn">Bengali</option>
-              <option value="ru">Russian</option>
-              <option value="ja">Japanese</option>
-              <option value="pa">Punjabi</option>
+              <option value="pl">Polski</option>
+              <option value="es">Español</option>
+              <option value="zh">中文</option>
+              <option value="hi">हिन्दी</option>
+              <option value="ar">العربية</option>
+              <option value="pt">Português</option>
+              <option value="bn">বাংলা</option>
+              <option value="ru">Русский</option>
+              <option value="ja">日本語</option>
+              <option value="pa">ਪੰਜਾਬੀ</option>
           </Form.Select>
           </Nav>
         </Navbar.Collapse>
