@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Form, Row, Container } from 'react-bootstrap';
+import { Card, Button, Form, Row, Container, Spinner } from 'react-bootstrap';
 import { BsReply } from 'react-icons/bs';
 import moment from 'moment';
 import { BASE_URL } from '../../config.js';
@@ -40,7 +40,9 @@ function Question(props) {
                 // eslint-disable-next-line
     }, []);
 
+    const [submittingReply, setSubmittingReply] = useState(false);
     const submitAnswer = () => {
+        setSubmittingReply(true);
 
         fetch(`${BASE_URL}/answers`, {
             method: 'POST',
@@ -68,37 +70,40 @@ function Question(props) {
         .catch(error => {
             props.setErrorText(error.message);
             console.error('Error posting answer:', error.message);
+        })
+        .finally(() => {
+        setSubmittingReply(false)
         });
     };
 
-    const getContentTranslation = () => {
-        const translations = {
-          'en': question.content_en,
-          'pl': question.content_pl,
-          'es': question.content_es,
-          'zh-CN': question.content_zh,
-          'hi': question.content_hi,
-          'ar': question.content_ar,
-          'pt': question.content_pt,
-          'bn': question.content_bn,
-          'ru': question.content_ru,
-          'ja': question.content_ja,
-          'pa': question.content_pa
-        };
+    // const getContentTranslation = () => {
+    //     const translations = {
+    //       'en': question.content_en,
+    //       'pl': question.content_pl,
+    //       'es': question.content_es,
+    //       'zh-CN': question.content_zh,
+    //       'hi': question.content_hi,
+    //       'ar': question.content_ar,
+    //       'pt': question.content_pt,
+    //       'bn': question.content_bn,
+    //       'ru': question.content_ru,
+    //       'ja': question.content_ja,
+    //       'pa': question.content_pa
+    //     };
     
-        const translation = translations[props.language];
-        return translation === null || translation === '' ? question.content : translation;
-    };
+    //     const translation = translations[props.language];
+    //     return translation === null || translation === '' ? question.content : translation;
+    // };
 
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
             <Card.Header>
-               <Card.Title>{getContentTranslation()}
+               <Card.Title>{props.question[`content_${props.language}`] || props.question.content}
                &nbsp;
                {props.user && question.user_id !== props.user.id && (
                     <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>
                         {replyButtonText}&nbsp;
-                      < BsReply /> 
+                    
                     </Button>
                 )}
                </Card.Title>
@@ -112,14 +117,29 @@ function Question(props) {
                         <Form.Control
                             as="textarea"
                             rows={3}
-                            // value={questionText}
+                            readOnly={submittingReply}
                             onChange={(e) => setReplyText(e.target.value)}
                         />
                 </Form.Group>
                 <Container>
                 <Card.Subtitle className="mb-2 text-muted">signed {props.user && props.user.username ? props.user.username : "Anonymous"}</Card.Subtitle>
-                <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-secondary' : 'outline-secondary'}  size="sm" onClick={submitAnswer}>
-                    < BsReply /> REPLY
+                <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={submitAnswer} disabled={submittingReply}>
+                    {submittingReply ? (
+                        <>
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            <span className="ms-2">Translating...</span>
+                        </>
+                    ) : (
+                        <>
+                            <BsReply /> REPLY
+                        </>
+                    )}
                 </Button>
                 </Container>
 
@@ -137,6 +157,7 @@ function Question(props) {
                 setSuccessText = {props.setSuccessText}
                 setErrorText = {props.setErrorText}
                 setWarningText = {props.setWarningText}
+                language = {props.language}
                 />
             ) : (
                 <small>no replies yet...</small>

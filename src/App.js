@@ -33,8 +33,16 @@ function App() {
     []);
 
   // language controls
-  const [language, setLanguage] = useState('en');
-  console.log(language);
+  const [language, setLanguage] = useState(() => {
+    const storedLanguage = localStorage.getItem('language');
+    return storedLanguage ? storedLanguage : 'en';
+  });
+
+  const changeLanguage = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+  };
+
   // toast controls
   const [successText, setSuccessText] = useState('');
   const [errorText, setErrorText] = useState('');
@@ -164,6 +172,7 @@ function App() {
       setWarningText={setWarningText}
       setErrorText={setErrorText}
       setLanguage={setLanguage}
+      openRegistrationModal={openRegistrationModal}
     />
 
     <div className={`root ${theme === "light" ? "light-theme" : "dark-theme"}`}> {/* container for app content, used for dark/light theme */}
@@ -184,7 +193,6 @@ function App() {
       setUser={setUser}
       handleClose={closeLoginModal} 
       openPasswordResetModal={openPasswordResetModal} 
-      openRegistrationModal={openRegistrationModal}
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
       setErrorText={setErrorText}/>}

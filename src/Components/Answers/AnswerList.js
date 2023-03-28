@@ -4,15 +4,16 @@ import Answer from "./Answer";
 function AnswerList(props) {
   return (<>
       {props.answers.length > 0 ? (
-        props.answers.map((answer) => (
+        props.answers.map((answer, index) => (
           <Answer 
-          key={answer.id} 
+          key={index} 
           answer={answer} 
           theme = {props.theme}
           user = {props.user}
           setSuccessText = {props.setSuccessText}
           setErrorText = {props.setErrorText}
           setWarningText = {props.setWarningText}
+          language = {props.language}
         />
         ))
       ) : (

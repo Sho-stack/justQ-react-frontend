@@ -74,11 +74,11 @@ function NewPassModal(props) {
               </FloatingLabel>
           </Form.Group>
           <Modal.Footer>
-            <Button variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} onClick={props.handleClose}>
+            <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} onClick={props.handleClose}>
               <BsArrowLeftCircle />&nbsp;
               Cancel
             </Button>
-            <Button type="submit" variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="lg">
+            <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="lg">
               SET NEW PASSWORD
             </Button>
           </Modal.Footer>

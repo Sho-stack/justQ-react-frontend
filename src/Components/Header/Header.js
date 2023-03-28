@@ -70,7 +70,7 @@ function Header(props) {
               Logout
             </Button>
             
-            </>): (
+            </>): (<>
               <Button
                 bg={props.theme}
                 variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
@@ -80,7 +80,17 @@ function Header(props) {
               >
                 Login
               </Button>
-            )}
+              &nbsp;
+              <Button
+                bg={props.theme}
+                variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
+                size="lg"
+                onClick={props.openRegistrationModal}
+                className="nav-button"
+              >
+              Sign Up
+            </Button>
+            </>)}
             &nbsp;
             <Button bg={props.theme} variant={props.theme} onClick={props.toggleTheme}>
               {props.theme === 'light' ? <BsMoon /> : <BsSun />}
@@ -94,7 +104,7 @@ function Header(props) {
               <option value="en">English</option>
               <option value="pl">Polish</option>
               <option value="es">Spanish</option>
-              <option value="zh-CN">Chinese</option>
+              <option value="zh">Chinese</option>
               <option value="hi">Hindi</option>
               <option value="ar">Arabic</option>
               <option value="pt">Portuguese</option>

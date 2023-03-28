@@ -123,11 +123,11 @@ function RegisterModal(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  bg={props.theme} variant={props.theme} onClick={props.openLoginModal}>
+                    <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} onClick={props.openLoginModal}>
                         <BsArrowLeftCircle />&nbsp;
                         LOGIN
                     </Button>
-                    <Button  type="submit" bg={props.theme} variant={props.theme} size="lg">
+                    <Button  type="submit" bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="lg">
                         SIGN UP
                     </Button>
                 </Modal.Footer>

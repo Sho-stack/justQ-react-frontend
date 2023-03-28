@@ -97,19 +97,14 @@ function LoginModal(props) {
                         <Form.Check type="checkbox" label="&nbsp;Stay logged in" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group>
-                        <Button    variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={props.openPasswordResetModal}>
+                        <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={props.openPasswordResetModal}>
                             <BsUnlock /> forgot password?
-                        </Button>&nbsp;
-                        <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={props.openRegistrationModal}>
-                            < BsTerminal /> sign-up
                         </Button>
                     </Form.Group>
-
-
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button  bg={props.theme} variant={props.theme} size="lg" onClick={handleSubmit}>
+                <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="lg" onClick={handleSubmit}>
                      LOGIN&nbsp;< MdLogin />
                 </Button>
             </Modal.Footer>

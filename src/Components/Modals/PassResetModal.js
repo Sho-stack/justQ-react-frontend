@@ -75,11 +75,11 @@ function PassResetModal(props) {
                 
             </Modal.Body>
             <Modal.Footer>
-                <Button  bg={props.theme} variant={props.theme} onClick={props.openLoginModal}>
+                <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} onClick={props.openLoginModal}>
                     <BsArrowLeftCircle />&nbsp;
                     LOGIN
                 </Button>
-                <Button  bg={props.theme} variant={props.theme} size="lg" type="submit">
+                <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="lg" type="submit">
                     RESET
                 </Button>
             </Modal.Footer>
