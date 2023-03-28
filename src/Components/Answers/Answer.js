@@ -5,10 +5,7 @@ import moment from "moment";
 
 
 function Answer(props) {
-    console.log('props:')
-    console.log(props)
     const timeElapsed = moment(props.answer.timestamp).fromNow();
-  
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
 

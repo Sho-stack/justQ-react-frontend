@@ -5,6 +5,7 @@ import Question from './Question';
 function QuestionList(props) {
   return (
     <Container>
+      {console.log(props.questions)}
       {props.questions.length ? props.questions.map((question) => (
         <Question 
         key={question.id} 

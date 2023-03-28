@@ -5,7 +5,6 @@ function AnswerList(props) {
   return (<>
       {props.answers.length > 0 ? (
         props.answers.map((answer) => (
-    
           <Answer 
           key={answer.id} 
           answer={answer} 
