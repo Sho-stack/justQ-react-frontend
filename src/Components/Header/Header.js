@@ -2,6 +2,7 @@ import { Navbar, Container, Nav, Button, Form } from 'react-bootstrap';
 import { BsMoon, BsSun } from 'react-icons/bs';
 import { BASE_URL } from '../../config';
 import { MdAccountCircle } from 'react-icons/md';
+
 function Header(props) {
 
   const handleLogout = () => {
@@ -101,18 +102,18 @@ function Header(props) {
               size="sm"
               onChange={(e) => props.setLanguage(e.target.value)}
             >
-              <option value="en">English</option>
-              <option value="pl">Polski</option>
-              <option value="es">Español</option>
-              <option value="zh">中文</option>
-              <option value="hi">हिन्दी</option>
-              <option value="ar">العربية</option>
-              <option value="pt">Português</option>
-              <option value="bn">বাংলা</option>
-              <option value="ru">Русский</option>
-              <option value="ja">日本語</option>
-              <option value="pa">ਪੰਜਾਬੀ</option>
-          </Form.Select>
+              <option value="en">🇬🇧 English</option>
+              <option value="pl">🇵🇱 Polski</option>
+              <option value="es">🇪🇸 Español</option>
+              <option value="zh">🇨🇳 中文</option>
+              <option value="hi">🇮🇳 हिन्दी</option>
+              <option value="ar">🇸🇦 العربية</option>
+              <option value="pt">🇵🇹 Português</option>
+              <option value="bn">🇧🇩 বাংলা</option>
+              <option value="ru">🇷🇺 Русский</option>
+              <option value="ja">🇯🇵 日本語</option>
+              <option value="pa">🇵🇰 ਪੰਜਾਬੀ</option>
+            </Form.Select>
           </Nav>
         </Navbar.Collapse>
       </Container>

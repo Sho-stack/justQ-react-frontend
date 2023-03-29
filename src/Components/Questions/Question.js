@@ -5,8 +5,10 @@ import moment from 'moment';
 import { BASE_URL } from '../../config.js';
 import AnswerList from '../Answers/AnswerList.js';
 import {BsArrowUp, BsArrowDown} from 'react-icons/bs';
+import { Modal, Alert } from 'react-bootstrap';
 
 function Question(props) {
+
     const question = props.question;
     const timeElapsed = moment(question.timestamp).fromNow();
 
@@ -113,10 +115,13 @@ function Question(props) {
         });
 };
 
+    const [showModal, setShowModal] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(true);
+
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
             <Card.Header>
-               <Card.Title>{props.question[`content_${props.language}`] || props.question.content}
+               <Card.Title>Q: {props.question[`content_${props.language}`] || props.question.content}
                &nbsp;
                {props.user && question.user_id !== props.user.id && (<>
                     <Button bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}  size="sm" onClick={toggleReply}>
@@ -171,18 +176,18 @@ function Question(props) {
                 )}
             </Card.Header>
 
-            <Card.Body>
-            {answers.length > 0 ? (
+            <Card.Body style={{ padding: '0px' }}>
+            {answers.length > 0 ? (<>
                 <AnswerList 
-                answers={answers}
-                theme = {props.theme}
-                user = {props.user}
-                setSuccessText = {props.setSuccessText}
-                setErrorText = {props.setErrorText}
-                setWarningText = {props.setWarningText}
-                language = {props.language}
+                    questionId={question.id}
+                    theme = {props.theme}
+                    user = {props.user}
+                    setSuccessText = {props.setSuccessText}
+                    setErrorText = {props.setErrorText}
+                    setWarningText = {props.setWarningText}
+                    language = {props.language}
                 />
-            ) : (
+            </>) : (
                 <small>no replies yet...</small>
             )}
             </Card.Body>

@@ -135,30 +135,7 @@ function App() {
     }
   }, []);
 
-  // questions list controls
-  const [questions, setQuestions] = useState([]);
   const [refreshQuestions, setRefreshQuestions] = useState(false);
-  useEffect(() => {
-    fetch(`${BASE_URL}/questions`, {
-      method: 'GET',
-      credentials: 'include'
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error(`Error fetching questions: ${response.statusText}`);
-      }
-    })
-    .then(data => {
-      setQuestions(data.questions);
-    })
-    .catch(error => {
-      console.error('Error fetching questions:', error);
-      setErrorText(`Error fetching questions: ${error.message}`);
-    });
-  }, [refreshQuestions]);
-
 
   return (<>
 
@@ -237,12 +214,12 @@ function App() {
 
     <QuestionList 
       theme={theme}  
-      questions={questions}         
       setSuccessText={setSuccessText}
       setWarningText={setWarningText}
       setErrorText={setErrorText}
       user={user}
       language={language}
+      refreshQuestions={refreshQuestions}
     />
 
     </div>{/* end of app's theme container */}
