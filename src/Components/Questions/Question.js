@@ -4,8 +4,7 @@ import { BsReply } from 'react-icons/bs';
 import moment from 'moment';
 import { BASE_URL } from '../../config.js';
 import AnswerList from '../Answers/AnswerList.js';
-import {BsArrowUp, BsArrowDown} from 'react-icons/bs';
-import { Modal, Alert } from 'react-bootstrap';
+import { FaThumbsUp } from 'react-icons/fa';
 
 function Question(props) {
 
@@ -20,30 +19,12 @@ function Question(props) {
     };
     const [replyButtonText, setReplyButtonText] = useState("Reply");
 
-    const [answers, setAnswers] = useState([]);
-    useEffect(() => {
-
-      fetch(`${BASE_URL}/questions/${question.id}/answers`, {
-        credentials: 'include'
-      })
-        .then(response => {
-          if (!response.ok) {
-            return response.json().then(error => {
-              throw new Error(error.message);
-            });
-          }
-          return response.json();
-        })
-        .then(data => {
-          setAnswers(data.answers);
-        })
-        .catch(error => {
-          console.error('Error fetching answers:', error);
-        });
-                // eslint-disable-next-line
-    }, []);
 
     const [submittingReply, setSubmittingReply] = useState(false);
+    const [answersUpdated, setAnswersUpdated] = useState(false);
+    const refreshAnswers = () => {
+        setAnswersUpdated(!answersUpdated);
+    };
     const submitAnswer = () => {
         setSubmittingReply(true);
 
@@ -66,7 +47,6 @@ function Question(props) {
         .then(data => {
             if (!data.error) {
                 props.setSuccessText('Your answer has been posted!');
-                setAnswers([...answers, data.answer])
                 toggleReply();
             }
         })
@@ -76,10 +56,11 @@ function Question(props) {
         })
         .finally(() => {
         setSubmittingReply(false)
+        refreshAnswers();
         });
     };
 
-    const [upvoted, setUpvoted] = useState(props.question.user_vote === 1);
+    const [upvoted, setUpvoted] = useState(question.user_vote === 1);
     const [netVotes, setNetVotes] = useState(question.net_votes);
 
     const toggleUpvote = () => {
@@ -91,7 +72,7 @@ function Question(props) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ 
-                question_id: props.question.id, 
+                question_id: question.id, 
                 vote: newVoteValue 
             }),
             credentials: 'include',
@@ -115,8 +96,6 @@ function Question(props) {
         });
 };
 
-    const [showModal, setShowModal] = useState(false);
-    const [showConfirmation, setShowConfirmation] = useState(true);
 
     return (
         <Card className={`mb-3 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}>
@@ -130,12 +109,12 @@ function Question(props) {
                     </Button>
                     &nbsp;
                     <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={toggleUpvote } active={upvoted}>
-                        + 1
+                       <FaThumbsUp />
                     </Button>
                     </>)}
                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{question.author} - {timeElapsed}
-
+               <Card.Subtitle className="mb-2 text-muted">
+                {question.author} - {timeElapsed}
                 </Card.Subtitle>
 
                 {showReply && props.user && question.user_id !== props.user.id && (
@@ -177,7 +156,6 @@ function Question(props) {
             </Card.Header>
 
             <Card.Body style={{ padding: '0px' }}>
-            {answers.length > 0 ? (<>
                 <AnswerList 
                     questionId={question.id}
                     theme = {props.theme}
@@ -186,10 +164,9 @@ function Question(props) {
                     setErrorText = {props.setErrorText}
                     setWarningText = {props.setWarningText}
                     language = {props.language}
+                    refreshAnswers = {refreshAnswers}
                 />
-            </>) : (
-                <small>no replies yet...</small>
-            )}
+
             </Card.Body>
             <Card.Footer>
             <Card.Text>{netVotes} points</Card.Text>

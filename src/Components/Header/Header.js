@@ -93,9 +93,7 @@ function Header(props) {
             </Button>
             </>)}
             &nbsp;
-            <Button bg={props.theme} variant={props.theme} onClick={props.toggleTheme}>
-              {props.theme === 'light' ? <BsMoon /> : <BsSun />}
-            </Button>
+
             <Form.Select
               className={`language-select me-2 ${props.theme === "light" ? "light-theme" : "dark-theme"}`}
               style={{ width: "auto" }}
@@ -114,6 +112,9 @@ function Header(props) {
               <option value="ja">🇯🇵 日本語</option>
               <option value="pa">🇵🇰 ਪੰਜਾਬੀ</option>
             </Form.Select>
+            <Button bg={props.theme} variant={props.theme} onClick={props.toggleTheme}>
+              {props.theme === 'light' ? <BsMoon /> : <BsSun />}
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -8,16 +8,25 @@ function QuestionList(props) {
   const [pageSize, setPageSize] = useState(6); 
   const [totalPages, setTotalPages] = useState(1);
   const [questions, setQuestions] = useState([]);
+  const fetchQuestions = () => {
+    fetch(`${BASE_URL}/questions?page=${currentPage}&per_page=${pageSize}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include', 
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('data: ', data)
+        setTotalPages(data.total_pages);
+        setQuestions(data.questions);
+      })
+      .catch(error => {
+        console.error('Error fetching questions:', error);
+      });
+};
 
-  const fetchQuestions = async () => {
-    // Replace this URL with your actual API URL
-    const response = await fetch(`${BASE_URL}/questions?page=${currentPage}&per_page=${pageSize}`);
-    const data = await response.json();
-  
-    setTotalPages(Math.ceil(data.total_questions / pageSize));
-    setTotalPages(data.total_pages);
-    setQuestions(data.questions);
-  };
 
   useEffect(() => {
     fetchQuestions();
