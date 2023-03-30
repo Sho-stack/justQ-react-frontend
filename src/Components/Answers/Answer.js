@@ -4,7 +4,6 @@ import moment from "moment";
 import { BASE_URL } from "../../config.js";
 
 function Answer(props) {
-    console.log(props.answer.user_vote)
   const timeElapsed = moment(props.answer.timestamp).fromNow();
   const [upvoted, setUpvoted] = useState(props.answer.user_vote === 1);
   const [downvoted, setDownvoted] = useState(props.answer.user_vote === -1);

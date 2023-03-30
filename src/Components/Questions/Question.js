@@ -17,6 +17,12 @@ function Question(props) {
         setShowReply(!showReply);
         setReplyButtonText(showReply ? "Reply" : "Hide");
     };
+    useEffect(() => {
+        const savedReplyText = localStorage.getItem(`replyText-${question.id}`);
+        if (savedReplyText) {
+          setReplyText(savedReplyText);
+        }
+      }, [showReply]);
     const [replyButtonText, setReplyButtonText] = useState("Reply");
 
 
@@ -48,6 +54,7 @@ function Question(props) {
             if (!data.error) {
                 props.setSuccessText('Your answer has been posted!');
                 toggleReply();
+                localStorage.removeItem(`replyText-${question.id}`);
             }
         })
         .catch(error => {
@@ -108,7 +115,7 @@ function Question(props) {
                     
                     </Button>
                     &nbsp;
-                    <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={toggleUpvote } active={upvoted}>
+                    <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} active={upvoted} size="sm" onClick={toggleUpvote }>
                        <FaThumbsUp />
                     </Button>
                     </>)}
@@ -124,9 +131,13 @@ function Question(props) {
                             as="textarea"
                             rows={3}
                             readOnly={submittingReply}
-                            onChange={(e) => setReplyText(e.target.value)}
+                            value={replyText}
+                            onChange={(e) => {
+                                setReplyText(e.target.value);
+                                localStorage.setItem(`replyText-${question.id}`, e.target.value);
+                            }}
                         />
-                </Form.Group>
+                    </Form.Group>
                 <Container>
                 <Card.Subtitle className="mb-2 text-muted">signed {props.user && props.user.username ? props.user.username : "Anonymous"}</Card.Subtitle>
                 <Button  bg={props.theme} variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'} size="sm" onClick={submitAnswer} disabled={submittingReply}>
@@ -157,7 +168,7 @@ function Question(props) {
 
             <Card.Body style={{ padding: '0px' }}>
                 <AnswerList 
-                    questionId={question.id}
+                    question={question}
                     theme = {props.theme}
                     user = {props.user}
                     setSuccessText = {props.setSuccessText}
@@ -165,6 +176,8 @@ function Question(props) {
                     setWarningText = {props.setWarningText}
                     language = {props.language}
                     refreshAnswers = {refreshAnswers}
+                    sortBy={props.sortBy}
+                    order={props.order}
                 />
 
             </Card.Body>

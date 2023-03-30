@@ -110,8 +110,8 @@ function App() {
       .then(data => {
         if (data.user) {
           setUser(data.user);
+          setSuccessText('Login systems online');
         }
-        setSuccessText('Login systems online');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -119,7 +119,6 @@ function App() {
       });
   }, []);
 
-  
 
   // password reset controls
   const [resetToken, setResetToken] = useState(null);
