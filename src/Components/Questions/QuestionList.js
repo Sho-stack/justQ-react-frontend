@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Container, Pagination, ButtonGroup, Button } from 'react-bootstrap';
 import Question from './Question';
 import { BASE_URL } from '../../config.js';
+import { ImCogs } from 'react-icons/im';
+import { FaCog } from 'react-icons/fa';
 
 function QuestionList(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
   const [totalPages, setTotalPages] = useState(1);
   const [questions, setQuestions] = useState([]);
-  const [sortBy, setSortBy] = useState('timestamp');
-  const [order, setOrder] = useState('desc');
-  const [answerSortBy, setAnswerSortBy] = useState('timestamp');
-  const [answerOrder, setAnswerOrder] = useState('desc');
+const [sortBy, setSortBy] = useState(localStorage.getItem('sortBy') || 'timestamp');
+const [order, setOrder] = useState(localStorage.getItem('order') || 'desc');
 
 
   const fetchQuestions = () => {
@@ -50,12 +50,14 @@ function QuestionList(props) {
     setSortBy(value);
     localStorage.setItem('sortBy', value);
   };
-
   const handleOrderChange = (value) => {
     setOrder(value);
     localStorage.setItem('order', value);
   };
-
+  const [showSortingControls, setShowSortingControls] = useState(false);
+  const toggleSortingControls = () => {
+    setShowSortingControls(!showSortingControls);
+  };
   const paginationItems = [];
   for (let number = 1; number <= totalPages; number++) {
     paginationItems.push(
@@ -63,6 +65,7 @@ function QuestionList(props) {
         key={number}
         active={number === currentPage}
         onClick={() => setCurrentPage(number)}
+        className={number === currentPage ? 'active' : ''}
       >
         {number}
       </Pagination.Item>,
@@ -71,8 +74,19 @@ function QuestionList(props) {
 
   return (
     <Container>
+      <div className="d-flex justify-content-center align-items-center mb-2">
+        
+        <Button
+          bg={props.theme}
+          variant={props.theme === 'dark' ? 'outline-light' : 'outline-dark'}
+          onClick={toggleSortingControls}
+        >
+          {showSortingControls ? <>Sorting <FaCog/></>: <>Sorting <FaCog/></>}
+        </Button>
+      </div>
 
-      <div className="d-flex justify-content-center align-items-center mb-2 text-center">
+      {showSortingControls && (
+        <div className="d-flex justify-content-center align-items-center mb-2 text-center">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           Sort By:
          <ButtonGroup>
@@ -112,8 +126,14 @@ function QuestionList(props) {
             {sortBy === 'timestamp' ? 'From Newest' : 'Descending'}
           </Button>
         </ButtonGroup>
+        <Pagination
+            className={`mt-3 justify-content-center ${props.theme}-theme`}
+          >
+            {paginationItems}
+          </Pagination>
         </div>
       </div>
+      )}
 
 
       <br></br>
@@ -129,8 +149,6 @@ function QuestionList(props) {
               setWarningText={props.setWarningText}
               setErrorText={props.setErrorText}
               language={props.language}
-              sortBy={answerSortBy}
-              order={answerOrder}
             />
           ))}
           <Pagination

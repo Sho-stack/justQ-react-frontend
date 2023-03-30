@@ -9,7 +9,6 @@ function AnswerList(props) {
   const [totalPages, setTotalPages] = useState(1);
   const [answers, setAnswers] = useState([]);
 
-  console.log('answers: ', answers);
 
   const fetchAnswers = () => {
     fetch(
@@ -34,7 +33,7 @@ function AnswerList(props) {
 
   useEffect(() => {
     fetchAnswers();
-  }, [currentPage]);
+  }, [currentPage, props.refreshAnswers]);
 
   const paginationItems = [];
 
@@ -78,7 +77,7 @@ function AnswerList(props) {
           {answers.length ? (
               <div style={{ paddingLeft: '5rem' }}>
 
-              {answers.map((answer) => (
+                {answers.map((answer) => (
                   <Answer
                     key={answer.id}
                     answer={answer}
@@ -88,9 +87,9 @@ function AnswerList(props) {
                     setWarningText={props.setWarningText}
                     setErrorText={props.setErrorText}
                     language={props.language}
+                    fetchAnswers={fetchAnswers}
                   />
-
-              ))}
+                ))}
               
               <Pagination className={`mt-3 justify-content-center ${props.theme}-theme`}>{paginationItems}</Pagination>
               </div>

@@ -86,5 +86,46 @@
 } */
 
 textarea {
-  max-height: 200px; /* set the maximum height to whatever value you want */
+  max-height: 200px;
+}
+
+/* PAGINATION STYLING */
+.pagination {
+  margin-top: 1rem;
+}
+
+/* LIGHT THEME PAGINATION STYLING */
+.light-theme .page-item.active .page-link,
+.light-theme .page-item .page-link {
+  color: #000;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.light-theme .page-item.active .page-link:focus,
+.light-theme .page-item.active .page-link:hover,
+.light-theme .page-item.active .page-link, /* Add this line */
+.light-theme .page-item .page-link:focus,
+.light-theme .page-item:hover .page-link {
+  background-color: #e9ecef;
+  color: #000;
+  border-color: #ccc;
+}
+
+/* DARK THEME PAGINATION STYLING */
+.dark-theme .page-item.active .page-link,
+.dark-theme .page-item .page-link {
+  color: #d4d4d4;
+  background-color: #454545;
+  border-color: #7d7d7d;
+}
+
+.dark-theme .page-item.active .page-link:focus,
+.dark-theme .page-item.active .page-link:hover,
+.dark-theme .page-item.active .page-link, /* Add this line */
+.dark-theme .page-item .page-link:focus,
+.dark-theme .page-item:hover .page-link {
+  background-color: #343a40;
+  color: #d4d4d4;
+  border-color: #7d7d7d;
 }

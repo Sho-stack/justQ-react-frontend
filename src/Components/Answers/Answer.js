@@ -36,6 +36,7 @@ function Answer(props) {
         if (!data.error) {
           setUpvoted(!upvoted);
           setNetVotes(netVotes + (newVoteValue === 1 ? 1 : -1));
+          props.fetchAnswers();
         }
       })
       .catch((error) => {
@@ -70,6 +71,7 @@ function Answer(props) {
         if (!data.error) {
           setDownvoted(!downvoted);
           setNetVotes(netVotes + (newVoteValue === -1 ? -1 : 1));
+          props.fetchAnswers();
         }
       })
       .catch((error) => {
@@ -85,36 +87,41 @@ function Answer(props) {
         }`}
       >
         <Card.Header>
-          A: {props.answer[`content_${props.language}`] || props.answer.content}
+        {props.user && props.answer.user_id === props.user.id ? "Your reply: " : "A: "} {props.answer[`content_${props.language}`] || props.answer.content}
           <Card.Subtitle className="mb-2 text-muted">
             {props.answer.author} - {timeElapsed}
           </Card.Subtitle>
           {props.user && (
             <>
-              <Button
-                bg={props.theme}
-                variant={
-                  props.theme === "dark" ? "outline-light" : "outline-dark"
-                }
-                size="sm"
-                onClick={toggleUpvote}
-                active={upvoted}
-                className="ms-2"
-              >
-                +1
-              </Button>
-              <Button
-                bg={props.theme}
-                variant={
-                  props.theme === "dark" ? "outline-light" : "outline-dark"
-                }
-                size="sm"
-                onClick={toggleDownvote}
-                active={downvoted}
-                className="ms-2"
-              >
-                -1
-              </Button>
+              {netVotes} points
+              {props.user && props.answer.user_id !== props.user.id && (
+                <>
+                  <Button
+                    bg={props.theme}
+                    variant={
+                      props.theme === "dark" ? "outline-light" : "outline-dark"
+                    }
+                    size="sm"
+                    onClick={toggleUpvote}
+                    active={upvoted}
+                    className="ms-2"
+                  >
+                    +1
+                  </Button>
+                  <Button
+                    bg={props.theme}
+                    variant={
+                      props.theme === "dark" ? "outline-light" : "outline-dark"
+                    }
+                    size="sm"
+                    onClick={toggleDownvote}
+                    active={downvoted}
+                    className="ms-2"
+                  >
+                    -1
+                  </Button>
+                </>
+              )}
             </>
           )}
         </Card.Header>
