@@ -5,21 +5,23 @@ import { BASE_URL } from '../../config.js';
 
 function AnswerList(props) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(2);
   const [totalPages, setTotalPages] = useState(1);
   const [answers, setAnswers] = useState([]);
 
 
   const fetchAnswers = () => {
     fetch(
-      `${BASE_URL}/questions/${props.question.id}/answers?page=${currentPage}&per_page=${pageSize}&sort_by=${props.sortBy}&order=${props.order}`,
+      `${BASE_URL}/questions/${props.question.id}/answers?page=${currentPage}&per_page=${pageSize}${
+        props.sortBy ? `&sort_by=${props.sortBy}` : ""
+      }${props.order ? `&order=${props.order}` : ""}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
-      },
+        credentials: "include",
+      }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -27,7 +29,7 @@ function AnswerList(props) {
         setAnswers(data.answers);
       })
       .catch((error) => {
-        console.error('Error fetching answers:', error);
+        console.error("Error fetching answers:", error);
       });
   };
 
@@ -43,6 +45,7 @@ function AnswerList(props) {
         key={number}
         active={number === currentPage}
         onClick={() => setCurrentPage(number)}
+        className={number === currentPage ? 'active' : ''}
       >
         {number}
       </Pagination.Item>,
@@ -74,7 +77,7 @@ function AnswerList(props) {
 
       {showAnswers && (
         <>
-          {answers.length ? (
+          {answers && answers.length ? (
               <div style={{ paddingLeft: '5rem' }}>
 
                 {answers.map((answer) => (
