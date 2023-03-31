@@ -108,7 +108,7 @@ function Answer(props) {
                   >
                     +1
                   </Button>
-                  <Button
+                  {/* <Button
                     bg={props.theme}
                     variant={
                       props.theme === "dark" ? "outline-light" : "outline-dark"
@@ -119,7 +119,7 @@ function Answer(props) {
                     className="ms-2"
                   >
                     -1
-                  </Button>
+                  </Button> */}
                 </>
               )}
             </>
